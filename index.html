@@ -8,15 +8,50 @@
     body {
       margin: 0;
       overflow: hidden;
-      background-color: black;
+      background-color: #2B3C4D; /* Darker grey-blue background */
       position: relative;
     }
-    .floating {
+    /* Each moving wrapper contains a gif and an overlaid label */
+    .hover-wrapper {
       position: absolute;
       width: 300px;
-      /* Remove transition for smooth continuous movement */
       cursor: pointer;
     }
+    .hover-wrapper img {
+      width: 100%;
+      display: block;
+    }
+    /* The label that appears on hover */
+    .hover-wrapper .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+      background: rgba(0,0,0,0.5);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    /* Porch click text in the upper right corner */
+    #porchClick {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      color: white;
+      z-index: 20;
+    }
+    #porchClick a {
+      color: white;
+      text-decoration: none;
+    }
+    /* Video overlay styles */
     #videoOverlay {
       position: fixed;
       top: 0;
@@ -37,131 +72,153 @@
   </style>
 </head>
 <body>
+  <!-- Three hover wrappers for the three GIFs -->
+  <div class="hover-wrapper floating" id="wrapper1">
+    <img src="blur1.gif" data-default="blur1.gif" data-hover="blur2.jpg" data-label="where am i?" data-link="who.html">
+    <div class="label"></div>
+  </div>
+  <div class="hover-wrapper floating" id="wrapper2">
+    <img src="eat2.gif" data-default="eat2.gif" data-hover="couch.png" data-label="tour" data-link="tour.html">
+    <div class="label"></div>
+  </div>
+  <div class="hover-wrapper floating" id="wrapper3">
+    <img src="smile2.gif" data-default="smile2.gif" data-hover="store.jpg" data-label="shop" data-link="shop.html">
+    <div class="label"></div>
+  </div>
 
-  <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-link="who.html">
-  <img src="eat2.gif" class="floating" id="gif2" data-hover="couch.png" data-link="tour.html">
-  <img src="smile2.gif" class="floating" id="gif3" data-hover="store.jpg" data-link="shop.html">
-  <img src="faces.gif" class="floating" id="gif4" data-hover="faces2.jpg" data-video="true">
+  <!-- Porch click text in the upper right -->
+  <div id="porchClick"><a href="#" id="porchClickLink">porch click</a></div>
 
+  <!-- Video Overlay -->
   <div id="videoOverlay">
     <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Create an array to hold our image objects with position and velocity.
-      const images = [];
-      const elems = document.querySelectorAll('.floating');
-      const speedFactor = 1.08; // Increase speed by 8%
-  
-      // Initialize each image with a random starting position and small random velocities.
-      elems.forEach(img => {
-        const rect = img.getBoundingClientRect();
+      const wrappers = document.querySelectorAll('.hover-wrapper');
+      const speedFactor = 1.08; // 8% faster
+      const movingObjects = []; // holds each wrapper's state
+
+      // Initialize each wrapper with a random starting position and small random velocities.
+      wrappers.forEach(wrapper => {
+        const rect = wrapper.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
         const posX = Math.random() * (window.innerWidth - width);
         const posY = Math.random() * (window.innerHeight - height);
-        // Set slow velocities (in pixels per frame) multiplied by speedFactor
+        // Base velocities multiplied by speedFactor (in pixels per frame)
         const velX = (Math.random() * 2 - 1) * 0.5 * speedFactor;
         const velY = (Math.random() * 2 - 1) * 0.5 * speedFactor;
-  
-        images.push({ element: img, posX, posY, velX, velY, width, height });
+        movingObjects.push({ element: wrapper, posX, posY, velX, velY, width, height });
       });
-  
-      // Update positions continuously
+
+      // Animation loop: update positions, handle collisions and screen bounces.
       function updatePositions() {
-        images.forEach(obj => {
-          // Update position only if not stopped (velocity may be zero)
+        // Update each object's position and bounce off screen edges.
+        movingObjects.forEach(obj => {
           obj.posX += obj.velX;
           obj.posY += obj.velY;
-          
-          // Wrap-around horizontal
-          if (obj.posX > window.innerWidth) {
-            obj.posX = obj.posX - window.innerWidth;
-          } else if (obj.posX + obj.width < 0) {
-            obj.posX = window.innerWidth + obj.posX;
+
+          // Bounce off left/right edges:
+          if (obj.posX < 0) {
+            obj.posX = 0;
+            obj.velX = -obj.velX;
+          } else if (obj.posX + obj.width > window.innerWidth) {
+            obj.posX = window.innerWidth - obj.width;
+            obj.velX = -obj.velX;
           }
-          
-          // Wrap-around vertical
-          if (obj.posY > window.innerHeight) {
-            obj.posY = obj.posY - window.innerHeight;
-          } else if (obj.posY + obj.height < 0) {
-            obj.posY = window.innerHeight + obj.posY;
+
+          // Bounce off top/bottom edges:
+          if (obj.posY < 0) {
+            obj.posY = 0;
+            obj.velY = -obj.velY;
+          } else if (obj.posY + obj.height > window.innerHeight) {
+            obj.posY = window.innerHeight - obj.height;
+            obj.velY = -obj.velY;
           }
         });
-        
-        // Collision detection and response
-        for (let i = 0; i < images.length; i++) {
-          for (let j = i + 1; j < images.length; j++) {
-            let a = images[i];
-            let b = images[j];
-            // Check if rectangles overlap
-            if (a.posX < b.posX + b.width &&
-                a.posX + a.width > b.posX &&
-                a.posY < b.posY + b.height &&
-                a.posY + a.height > b.posY) {
-              // Reverse both images' velocities (simple bounce)
+
+        // Check collisions between wrappers and bounce them off each other.
+        for (let i = 0; i < movingObjects.length; i++) {
+          for (let j = i + 1; j < movingObjects.length; j++) {
+            const a = movingObjects[i];
+            const b = movingObjects[j];
+            if (
+              a.posX < b.posX + b.width &&
+              a.posX + a.width > b.posX &&
+              a.posY < b.posY + b.height &&
+              a.posY + a.height > b.posY
+            ) {
+              // Simple bounce: reverse velocities.
               a.velX = -a.velX;
               a.velY = -a.velY;
               b.velX = -b.velX;
               b.velY = -b.velY;
+              // Nudge them apart.
+              a.posX += a.velX * 2;
+              a.posY += a.velY * 2;
+              b.posX += b.velX * 2;
+              b.posY += b.velY * 2;
             }
           }
         }
-        
-        // Apply updated positions to elements
-        images.forEach(obj => {
+
+        // Apply updated positions.
+        movingObjects.forEach(obj => {
           obj.element.style.transform = `translate(${obj.posX}px, ${obj.posY}px)`;
         });
-        
         requestAnimationFrame(updatePositions);
       }
-      
       updatePositions();
-      
-      // Setup hover and click behavior for image swapping and stopping movement.
-      elems.forEach(img => {
-        // Hover behavior: Stop movement and swap image.
-        img.addEventListener('mouseover', function() {
-          // Store original src if not already stored.
-          if (!this.dataset.original) {
-            this.dataset.original = this.src;
+
+      // Setup hover events on each wrapper.
+      wrappers.forEach(wrapper => {
+        const img = wrapper.querySelector('img');
+        const label = wrapper.querySelector('.label');
+
+        wrapper.addEventListener('mouseover', function() {
+          // Save original src if not already saved.
+          if (!img.dataset.original) {
+            img.dataset.original = img.src;
           }
-          // Find the corresponding image object and store its velocity if not already stored.
-          const imageObj = images.find(obj => obj.element === this);
-          if (!this.dataset.originalVelX) {
-            this.dataset.originalVelX = imageObj.velX;
-            this.dataset.originalVelY = imageObj.velY;
+          // Stop movement by setting velocity to 0.
+          const obj = movingObjects.find(o => o.element === wrapper);
+          if (!img.dataset.originalVelX) {
+            img.dataset.originalVelX = obj.velX;
+            img.dataset.originalVelY = obj.velY;
           }
-          // Stop movement.
-          imageObj.velX = 0;
-          imageObj.velY = 0;
-          // Swap image.
-          this.src = this.getAttribute('data-hover');
+          obj.velX = 0;
+          obj.velY = 0;
+          // Swap image and show label.
+          img.src = img.getAttribute('data-hover');
+          label.innerText = img.getAttribute('data-label');
+          label.style.opacity = 1;
         });
-        
-        // Mouseout: Restore original image and velocity.
-        img.addEventListener('mouseout', function() {
-          // Restore image.
-          this.src = this.dataset.original;
-          // Restore movement.
-          const imageObj = images.find(obj => obj.element === this);
-          imageObj.velX = parseFloat(this.dataset.originalVelX);
-          imageObj.velY = parseFloat(this.dataset.originalVelY);
+
+        wrapper.addEventListener('mouseout', function() {
+          // Restore image and resume movement.
+          img.src = img.dataset.original;
+          label.style.opacity = 0;
+          const obj = movingObjects.find(o => o.element === wrapper);
+          obj.velX = parseFloat(img.dataset.originalVelX);
+          obj.velY = parseFloat(img.dataset.originalVelY);
         });
-        
-        // Click behavior: If data-video exists, play video; otherwise, navigate.
-        img.addEventListener('click', function(event) {
+
+        // On click, navigate to the linked page.
+        wrapper.addEventListener('click', function(event) {
           event.stopPropagation();
-          if (this.getAttribute('data-video') === "true") {
-            document.getElementById('videoFrame').src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
-            document.getElementById('videoOverlay').style.display = "flex";
-          } else {
-            window.location.href = this.getAttribute('data-link');
-          }
+          window.location.href = img.getAttribute('data-link');
         });
       });
-      
+
+      // Porch click link (upper right) opens the video overlay.
+      document.getElementById('porchClickLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('videoFrame').src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
+        document.getElementById('videoOverlay').style.display = "flex";
+      });
+
       // Video overlay close behavior.
       document.getElementById('videoOverlay').addEventListener('click', function(event) {
         if (event.target === this) {
@@ -169,23 +226,23 @@
           document.getElementById('videoFrame').src = "";
         }
       });
-      
+
       document.addEventListener("keydown", function(event) {
         if (event.key === "Escape") {
           document.getElementById('videoOverlay').style.display = "none";
           document.getElementById('videoFrame').src = "";
         }
       });
-      
-      // Optional: Update dimensions on window resize.
+
+      // Update dimensions on window resize.
       window.addEventListener('resize', function() {
-        images.forEach(obj => {
-          obj.width = obj.element.getBoundingClientRect().width;
-          obj.height = obj.element.getBoundingClientRect().height;
+        movingObjects.forEach(obj => {
+          const rect = obj.element.getBoundingClientRect();
+          obj.width = rect.width;
+          obj.height = rect.height;
         });
       });
     });
-  </script>  
-
+  </script>
 </body>
 </html>
