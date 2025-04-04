@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHOP - Porch Couch</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    iframe {
+      width: 80%;
+      height: 450px;
+      max-width: 560px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Section -->
+  <div class="section">
+    <iframe src="https://www.youtube.com/embed/8fVYooH5FOY?feature=share" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <p style="font-size: 24px; margin-top: 10px;">PORCH PANTS, COUCH-SHIRTS, PAPERS - SOLD OUT</p>
+    <img src="frown.png" alt="Frown Face" style="width: 100px;">
+  </div>
+
+  <!-- Earrings Section -->
+  <div class="section">
+    <img src="earrings1.JPG" alt="Earrings 1" style="width: 45%; margin-right: 5%;">
+    <img src="earrings2.JPG" alt="Earrings 2" style="width: 45%;">
+    <p style="font-size: 24px; margin-top: 10px;">Earrings</p>
+  </div>
+
+  <!-- PayPal Form Section -->
+  <div class="section">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <input type="hidden" name="cmd" value="_s-xclick" />
+      <input type="hidden" name="hosted_button_id" value="RZC53SBTLSBAW" />
+      <table style="margin: 0 auto;">
+        <tr>
+          <td>
+            <input type="hidden" name="on0" value="Shipping"/>
+            Shipping
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select name="os0">
+              <option value="Canada">Canada $3.00 CAD</option>
+              <option value="Other places">Other places $6.00 CAD</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="hidden" name="on1" value="Type"/>
+            Type
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select name="os1">
+              <option value="Fiddle+Banjo">Fiddle+Banjo</option>
+              <option value="Fiddle+Couch">Fiddle+Couch</option>
+              <option value="Banjo+Couch">Banjo+Couch</option>
+              <option value="Double Couch for the freaks">Double Couch for the freaks</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <input type="hidden" name="currency_code" value="CAD" />
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" style="margin-top: 10px;"/>
+    </form>
+  </div>
+</body>
+</html>
