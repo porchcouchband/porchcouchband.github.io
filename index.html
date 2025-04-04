@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porch Couch</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            position: relative;
+        }
+        .floating {
+            position: absolute;
+            width: 150px;
+            transition: transform 0.3s, opacity 0.3s;
+            cursor: pointer;
+        }
+        #videoOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        #videoOverlay iframe {
+            width: 80%;
+            height: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-link="who.html">
+    <img src="eat2.gif" class="floating" id="gif2" data-hover="couch.png" data-link="tour.html">
+    <img src="smile2.gif" class="floating" id="gif3" data-hover="store.jpg" data-link="shop.html">
+    <img src="faces.gif" class="floating" id="gif4" data-hover="faces2.jpg" data-video="true">
+
+    <div id="videoOverlay">
+        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        function moveImage(img) {
+            let x = Math.random() * (window.innerWidth - 150);
+            let y = Math.random() * (window.innerHeight - 150);
+            img.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        document.querySelectorAll('.floating').forEach(img => {
+            moveImage(img);
+            setInterval(() => moveImage(img), 3000);
+            
+            img.addEventListener('mouseover', function() {
+                this.dataset.original = this.src;
+                this.src = this.getAttribute('data-hover');
+            });
+
+            img.addEventListener('mouseout', function() {
+                this.src = this.dataset.original;
+            });
+
+            img.addEventListener('click', function(event) {
+                event.stopPropagation();
+                if (this.getAttribute('data-video') === "true") {
+                    document.getElementById('videoFrame').src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
+                    document.getElementById('videoOverlay').style.display = "flex";
+                } else {
+                    window.location.href = this.getAttribute('data-link');
+                }
+            });
+        });
+
+        document.getElementById('videoOverlay').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = "none";
+                document.getElementById('videoFrame').src = "";
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                document.getElementById('videoOverlay').style.display = "none";
+                document.getElementById('videoFrame').src = "";
+            }
+        });
+    </script>
+
+</body>
+</html>
