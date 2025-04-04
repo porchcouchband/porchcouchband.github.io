@@ -1,95 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porch Couch</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: black;
-            position: relative;
-        }
-        .floating {
-            position: absolute;
-            width: 150px;
-            transition: transform 0.3s, opacity 0.3s;
-            cursor: pointer;
-        }
-        #videoOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-        #videoOverlay iframe {
-            width: 80%;
-            height: 80%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Porch Couch</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      position: relative;
+    }
+    .floating {
+      position: absolute;
+      width: 300px;
+      /* Remove transition for smooth continuous movement */
+      cursor: pointer;
+    }
+    #videoOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    #videoOverlay iframe {
+      width: 80%;
+      height: 80%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
-    <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-link="who.html">
-    <img src="eat2.gif" class="floating" id="gif2" data-hover="couch.png" data-link="tour.html">
-    <img src="smile2.gif" class="floating" id="gif3" data-hover="store.jpg" data-link="shop.html">
-    <img src="faces.gif" class="floating" id="gif4" data-hover="faces2.jpg" data-video="true">
+  <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-link="who.html">
+  <img src="eat2.gif" class="floating" id="gif2" data-hover="couch.png" data-link="tour.html">
+  <img src="smile2.gif" class="floating" id="gif3" data-hover="store.jpg" data-link="shop.html">
+  <img src="faces.gif" class="floating" id="gif4" data-hover="faces2.jpg" data-video="true">
 
-    <div id="videoOverlay">
-        <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
+  <div id="videoOverlay">
+    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
 
-    <script>
-        function moveImage(img) {
-            let x = Math.random() * (window.innerWidth - 150);
-            let y = Math.random() * (window.innerHeight - 150);
-            img.style.transform = `translate(${x}px, ${y}px)`;
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Create an array to hold our image objects with position and velocity.
+      const images = [];
+      const elems = document.querySelectorAll('.floating');
+      const speedFactor = 1.08; // Increase speed by 8%
+  
+      // Initialize each image with a random starting position and small random velocities.
+      elems.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const posX = Math.random() * (window.innerWidth - width);
+        const posY = Math.random() * (window.innerHeight - height);
+        // Set slow velocities (in pixels per frame) multiplied by speedFactor
+        const velX = (Math.random() * 2 - 1) * 0.5 * speedFactor;
+        const velY = (Math.random() * 2 - 1) * 0.5 * speedFactor;
+  
+        images.push({ element: img, posX, posY, velX, velY, width, height });
+      });
+  
+      // Update positions continuously
+      function updatePositions() {
+        images.forEach(obj => {
+          // Update position only if not stopped (velocity may be zero)
+          obj.posX += obj.velX;
+          obj.posY += obj.velY;
+          
+          // Wrap-around horizontal
+          if (obj.posX > window.innerWidth) {
+            obj.posX = obj.posX - window.innerWidth;
+          } else if (obj.posX + obj.width < 0) {
+            obj.posX = window.innerWidth + obj.posX;
+          }
+          
+          // Wrap-around vertical
+          if (obj.posY > window.innerHeight) {
+            obj.posY = obj.posY - window.innerHeight;
+          } else if (obj.posY + obj.height < 0) {
+            obj.posY = window.innerHeight + obj.posY;
+          }
+        });
+        
+        // Collision detection and response
+        for (let i = 0; i < images.length; i++) {
+          for (let j = i + 1; j < images.length; j++) {
+            let a = images[i];
+            let b = images[j];
+            // Check if rectangles overlap
+            if (a.posX < b.posX + b.width &&
+                a.posX + a.width > b.posX &&
+                a.posY < b.posY + b.height &&
+                a.posY + a.height > b.posY) {
+              // Reverse both images' velocities (simple bounce)
+              a.velX = -a.velX;
+              a.velY = -a.velY;
+              b.velX = -b.velX;
+              b.velY = -b.velY;
+            }
+          }
         }
-
-        document.querySelectorAll('.floating').forEach(img => {
-            moveImage(img);
-            setInterval(() => moveImage(img), 3000);
-            
-            img.addEventListener('mouseover', function() {
-                this.dataset.original = this.src;
-                this.src = this.getAttribute('data-hover');
-            });
-
-            img.addEventListener('mouseout', function() {
-                this.src = this.dataset.original;
-            });
-
-            img.addEventListener('click', function(event) {
-                event.stopPropagation();
-                if (this.getAttribute('data-video') === "true") {
-                    document.getElementById('videoFrame').src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
-                    document.getElementById('videoOverlay').style.display = "flex";
-                } else {
-                    window.location.href = this.getAttribute('data-link');
-                }
-            });
+        
+        // Apply updated positions to elements
+        images.forEach(obj => {
+          obj.element.style.transform = `translate(${obj.posX}px, ${obj.posY}px)`;
         });
-
-        document.getElementById('videoOverlay').addEventListener('click', function(event) {
-            if (event.target === this) {
-                this.style.display = "none";
-                document.getElementById('videoFrame').src = "";
-            }
+        
+        requestAnimationFrame(updatePositions);
+      }
+      
+      updatePositions();
+      
+      // Setup hover and click behavior for image swapping and stopping movement.
+      elems.forEach(img => {
+        // Hover behavior: Stop movement and swap image.
+        img.addEventListener('mouseover', function() {
+          // Store original src if not already stored.
+          if (!this.dataset.original) {
+            this.dataset.original = this.src;
+          }
+          // Find the corresponding image object and store its velocity if not already stored.
+          const imageObj = images.find(obj => obj.element === this);
+          if (!this.dataset.originalVelX) {
+            this.dataset.originalVelX = imageObj.velX;
+            this.dataset.originalVelY = imageObj.velY;
+          }
+          // Stop movement.
+          imageObj.velX = 0;
+          imageObj.velY = 0;
+          // Swap image.
+          this.src = this.getAttribute('data-hover');
         });
-
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                document.getElementById('videoOverlay').style.display = "none";
-                document.getElementById('videoFrame').src = "";
-            }
+        
+        // Mouseout: Restore original image and velocity.
+        img.addEventListener('mouseout', function() {
+          // Restore image.
+          this.src = this.dataset.original;
+          // Restore movement.
+          const imageObj = images.find(obj => obj.element === this);
+          imageObj.velX = parseFloat(this.dataset.originalVelX);
+          imageObj.velY = parseFloat(this.dataset.originalVelY);
         });
-    </script>
+        
+        // Click behavior: If data-video exists, play video; otherwise, navigate.
+        img.addEventListener('click', function(event) {
+          event.stopPropagation();
+          if (this.getAttribute('data-video') === "true") {
+            document.getElementById('videoFrame').src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
+            document.getElementById('videoOverlay').style.display = "flex";
+          } else {
+            window.location.href = this.getAttribute('data-link');
+          }
+        });
+      });
+      
+      // Video overlay close behavior.
+      document.getElementById('videoOverlay').addEventListener('click', function(event) {
+        if (event.target === this) {
+          this.style.display = "none";
+          document.getElementById('videoFrame').src = "";
+        }
+      });
+      
+      document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+          document.getElementById('videoOverlay').style.display = "none";
+          document.getElementById('videoFrame').src = "";
+        }
+      });
+      
+      // Optional: Update dimensions on window resize.
+      window.addEventListener('resize', function() {
+        images.forEach(obj => {
+          obj.width = obj.element.getBoundingClientRect().width;
+          obj.height = obj.element.getBoundingClientRect().height;
+        });
+      });
+    });
+  </script>  
 
 </body>
 </html>
