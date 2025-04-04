@@ -17,17 +17,6 @@
       position: absolute;
       transition: transform 0.3s;
       cursor: pointer;
-      border: 4px solid rgb(133, 127, 145); /* You can change the color and thickness */
-  border-radius: 10px; /* Optional: Rounds the edges of the border */
-    }
-
-    .text-link {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: white;
-      font-size: 18px;
-      text-decoration: none;
     }
 
     .overlay-text {
@@ -39,136 +28,47 @@
       pointer-events: none;
       display: none;
     }
-  </style>
-</head>
-<body>
-  <a href="https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1" class="text-link">porch click</a>
 
-  <div class="gif-container" id="container1">
-    <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-text="where am i?" data-link="who.html">
-    <div class="overlay-text" id="text1">where am i?</div>
-  </div>
-
-  <div class="gif-container" id="container2">
-    <img src="eat2.gif" class="floating" id="gif2" data-hover="couch.png" data-text="tour" data-link="tour.html">
-    <div class="overlay-text" id="text2">tour</div>
-  </div>
-
-  <div class="gif-container" id="container3">
-    <img src="smile2.gif" class="floating" id="gif3" data-hover="store.jpg" data-text="shop" data-link="shop.html">
-    <div class="overlay-text" id="text3">shop</div>
-  </div>
-
-  <script>
-    function updateGifSizes() {
-  const areaFactor = (window.innerWidth * window.innerHeight) / 10;
-  const size = Math.sqrt(areaFactor);
-  document.querySelectorAll('.floating').forEach(gif => {
-    gif.style.width = `${size}px`;
-    gif.style.height = "auto";
-  });
-}
-
-    function initializeGifs() {
-      document.querySelectorAll('.gif-container').forEach((container, index) => {
-        const gif = container.querySelector('.floating');
-        const text = container.querySelector('.overlay-text');
-
-        let x = Math.random() * (window.innerWidth - gif.width);
-        let y = Math.random() * (window.innerHeight - gif.height);
-        let dx = (Math.random() - 0.5) * 2;
-        let dy = (Math.random() - 0.5) * 2;
-        let isPaused = false;
-
-        function moveGif() {
-          if (!isPaused) {
-            x += dx;
-            y += dy;
-
-            if (x <= 0 || x + gif.width >= window.innerWidth) dx *= -1;
-            if (y <= 0 || y + gif.height >= window.innerHeight) dy *= -1;
-
-            gif.style.transform = `translate(${x}px, ${y}px)`;
-            text.style.transform = `translate(${x}px, ${y}px)`;
-          }
-
-          requestAnimationFrame(moveGif);
-        }
-
-        moveGif();
-
-        gif.addEventListener('mouseover', function () {
-          this.dataset.original = this.src;
-          this.src = this.dataset.hover;
-          text.style.display = "block";
-          isPaused = true;
-        });
-
-        gif.addEventListener('mouseout', function () {
-          this.src = this.dataset.original;
-          text.style.display = "none";
-          isPaused = false;
-        });
-
-        gif.addEventListener('click', function () {
-          window.location.href = this.dataset.link;
-        });
-      });
-    }
-
-    window.addEventListener('resize', updateGifSizes);
-    window.addEventListener('load', () => {
-      updateGifSizes();
-      initializeGifs();
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Porch Couch</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #2B3A42;
-      position: relative;
-      font-family: Arial, sans-serif;
-    }
-
-    .floating {
-      position: absolute;
-      transition: transform 0.3s;
+    .background-link {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
       cursor: pointer;
-      border: 4px solid rgb(133, 127, 145); /* You can change the color and thickness */
-  border-radius: 10px; /* Optional: Rounds the edges of the border */
+      z-index: -1;
     }
 
-    .text-link {
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-modal iframe {
+      width: 80%;
+      height: 80%;
+    }
+
+    .close-video {
       position: absolute;
       top: 10px;
-      right: 10px;
+      right: 20px;
       color: white;
-      font-size: 18px;
-      text-decoration: none;
-    }
-
-    .overlay-text {
-      position: absolute;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      text-shadow: 0px 0px 5px black;
-      pointer-events: none;
-      display: none;
+      font-size: 24px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <a href="https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1" class="text-link">porch click</a>
+  <div class="background-link" onclick="openVideo()"></div>
 
   <div class="gif-container" id="container1">
     <img src="blur1.gif" class="floating" id="gif1" data-hover="blur2.jpg" data-text="where am i?" data-link="who.html">
@@ -185,9 +85,14 @@
     <div class="overlay-text" id="text3">shop</div>
   </div>
 
+  <div class="video-modal" id="videoModal">
+    <span class="close-video" onclick="closeVideo()">&times;</span>
+    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+
   <script>
     function updateGifSizes() {
-      const areaFactor = (window.innerWidth * window.innerHeight) / 13;
+      const areaFactor = (window.innerWidth * window.innerHeight) / 10;
       const size = Math.sqrt(areaFactor);
       document.querySelectorAll('.floating').forEach(gif => {
         gif.style.width = `${size}px`;
@@ -240,6 +145,16 @@
           window.location.href = this.dataset.link;
         });
       });
+    }
+
+    function openVideo() {
+      document.getElementById("videoModal").style.display = "flex";
+      document.getElementById("videoFrame").src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
+    }
+
+    function closeVideo() {
+      document.getElementById("videoModal").style.display = "none";
+      document.getElementById("videoFrame").src = "";
     }
 
     window.addEventListener('resize', updateGifSizes);
