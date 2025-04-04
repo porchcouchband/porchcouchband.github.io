@@ -14,10 +14,13 @@
     }
 
     .floating {
-      position: absolute;
-      transition: transform 0.3s;
-      cursor: pointer;
-    }
+  position: absolute;
+  transition: transform 0.3s;
+  cursor: pointer;
+  border: 4px solid rgb(96, 87, 135); /* You can change the color and thickness */
+  border-radius: 10px; /* Optional: Rounds the edges of the border */
+}
+
 
     .overlay-text {
       position: absolute;
@@ -87,7 +90,7 @@
 
   <div class="video-modal" id="videoModal">
     <span class="close-video" onclick="closeVideo()">&times;</span>
-    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
   </div>
 
   <script>
@@ -149,7 +152,9 @@
 
     function openVideo() {
       document.getElementById("videoModal").style.display = "flex";
-      document.getElementById("videoFrame").src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1";
+      document.getElementById("videoFrame").src =
+  "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=1";
+
     }
 
     function closeVideo() {
@@ -162,6 +167,20 @@
       updateGifSizes();
       initializeGifs();
     });
+    // Close video on ESC key
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    closeVideo();
+  }
+});
+
+// Close video when clicking outside the iframe
+document.getElementById("videoModal").addEventListener("click", function (e) {
+  if (e.target === this) {
+    closeVideo();
+  }
+});
+
   </script>
 </body>
 </html>
