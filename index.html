@@ -93,6 +93,28 @@
     <span class="close-video" onclick="closeVideo()">&times;</span>
     <iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
   </div>
+  
+  <div style="position: fixed; top: 10px; right: 10px; z-index: 30;">
+    <img src="speaker.svg" alt="Speaker Icon" 
+         style="width: 40px; height: 40px; cursor: pointer; filter: invert(1);" 
+         onclick="toggleAudio()" />
+  </div>
+  
+  <audio id="audioPlayer">
+    <source src="Silver_Lake_3.11.2026.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function toggleAudio() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      if (audioPlayer.paused) {
+        audioPlayer.play(); // Play the audio if it is paused
+      } else {
+        audioPlayer.pause(); // Pause the audio if it is playing
+      }
+    }
+  </script>
 
   <script>
     function updateGifSizes() {
