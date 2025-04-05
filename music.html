@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <head>
       <header>
         <div class="header-left">
@@ -104,36 +104,63 @@
         }
       </style>
 </head>
-<style>
-  body {
-    font-family: sans-serif;
-    background: url('band1.jpg') no-repeat top center fixed; /* Aligns the background image to the top */
-    background-size: cover; /* Ensures the image covers the entire page */
-    color: #0c0c0c; /* Adjust text color for better contrast */
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-  }
-  a {
-    color: yellow; /* Adjust link color for better visibility */
-    text-decoration: none;
-    font-size: 24px;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  p {
-    font-size: 18px;
-    margin-top: 20px;
-    line-height: 1.6;
-    text-align: justify; /* Justifies the text */
-  }
-</style>
-<body>
-  <div style="position: absolute; top: 20%; left: 2%; width: 30%; text-align: left; background-color: rgba(255, 255, 255, 0.557); padding: 20px; border-radius: 10px;">
-    <p>
-      Alan Mackie and Jaron Freeman-Fox are <b>Porch Couch</b>, reanimating old-time and square dance tunes from Appalachia and beyond on fiddle and banjo, deftly balancing a deep respect for tradition against all the times they've shirked it: throat singing with Norwegians in a Siberian yurt camp, modern dancers leaping across tables at the PWYC bar gig, or playing for ravers under the midnight sun while the drummer bangs pool cues on the floor. Wry, colourful, and psychedelic, Porch Couch is an original sound in traditional music that moves listeners and dancers alike.
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TOUR - Porch Couch</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: url('band3.jpg') no-repeat center center fixed; /* Sets band2.jpg as the background */
+      background-size: cover; /* Ensures the image covers the entire page */
+      color: #fffbfb; /* Adjust text color for better contrast */
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    a {
+      color: yellow; /* Adjust link color for better visibility */
+      text-decoration: none;
+      font-size: 24px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body> 
+  <div style="text-align: center; margin-top: 20px;">
+    <p 
+      style="font-size: 24px; margin-bottom: 10px; cursor: pointer; display: inline-block; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 10px 20px; border-radius: 10px;" 
+      onclick="toggleAudio()">
+      click me for a secret twang
     </p>
+    <div id="audioPlayer" style="display: none; margin-top: 10px;">
+      <audio controls>
+        <source src="Silver_Lake_3.11.2026.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
   </div>
-</body>
+  
+  <div style="position: relative; padding-top: 56.25%; margin-top: 20px;">
+    <iframe 
+      src="https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=0&modestbranding=1&showinfo=0&rel=0&controls=1" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+    </iframe>
+  </div>
+  <script>
+    function toggleAudio() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      if (audioPlayer.style.display === 'none') {
+        audioPlayer.style.display = 'block'; // Show the audio player
+      } else {
+        audioPlayer.style.display = 'none'; // Hide the audio player
+      }
+    }
+  </script>
+  </body>
 </html>

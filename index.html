@@ -53,6 +53,7 @@
       background: rgba(0, 0, 0, 0.8);
       justify-content: center;
       align-items: center;
+      z-index: 20;
     }
 
     .video-modal iframe {
@@ -132,17 +133,21 @@
         moveGif();
 
         gif.addEventListener('mouseover', function () {
-          this.dataset.original = this.src;
-          this.src = this.dataset.hover;
-          text.style.display = "block";
-          isPaused = true;
-        });
+  this.dataset.original = this.src; // Save the original GIF source
+  this.src = this.dataset.hover; // Change to the hover image
+  text.style.display = "block"; // Show the overlay text
+  isPaused = true; // Stop the movement
+  this.style.zIndex = "10"; // Bring the GIF to the front
+  text.style.zIndex = "10"; // Bring the text to the front
+});
 
-        gif.addEventListener('mouseout', function () {
-          this.src = this.dataset.original;
-          text.style.display = "none";
-          isPaused = false;
-        });
+gif.addEventListener('mouseout', function () {
+  this.src = this.dataset.original; // Revert to the original GIF
+  text.style.display = "none"; // Hide the overlay text
+  isPaused = false; // Resume the movement
+  this.style.zIndex = "1"; // Reset the z-index of the GIF
+  text.style.zIndex = "1"; // Reset the z-index of the text
+});
 
         gif.addEventListener('click', function () {
           window.location.href = this.dataset.link;
