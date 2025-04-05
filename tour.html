@@ -1,34 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <header>
+        <div class="header-left">
+          <img src="porch-couch-logo.jpg" alt="Porch Couch Logo" class="logo" />
+          <span class="brand-text">PORCH COUCH</span>
+        </div>
+        <div class="header-right">
+          <nav>
+            <a href="index.html">HOME</a>
+            <a href="tour.html">TOUR</a>
+            <a href="shop.html">SHOP</a>
+            <a href="who.html">ABOUT</a>
+          </nav>
+          <div class="social-icons">
+            <a href="https://instagram.com/jaronfreemanfox" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://instagram.com/_alan_mackie" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://open.spotify.com/" target="_blank">
+              <img src="spotify.svg" alt="Spotify" />
+            </a>
+            <a href="mailto:porchcoucholdtime@gmail.com">
+              <img src="mailto.svg" alt="Email" />
+            </a>
+          </div>
+        </div>
+      </header>
+      
+      <style>
+        header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background-color: rgb(17, 15, 15);
+          padding: 10px 20px;
+          color: white;
+          font-family: sans-serif;
+          margin-bottom: 20px; /* Adds space below the header */
+        }
+      
+        /* Left side with logo + text */
+        .header-left {
+          display: flex;
+          align-items: center;
+        }
+      
+        /* Logo styling */
+        .header-left .logo {
+          width: 150px; /* Adjust as needed */
+          height: auto;
+          margin-right: 10px;
+        }
+      
+        /* Brand text styling */
+        .brand-text {
+          font-size: 24px;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+      
+        /* Right side with nav + social icons */
+        .header-right {
+          display: flex;
+          align-items: center;
+        }
+      
+        /* Navigation links */
+        header nav a {
+          color: white;
+          text-decoration: none;
+          margin-left: 15px;
+          font-size: 17px;
+          transition: color 0.3s ease;
+        }
+        header nav a:hover {
+          text-decoration: underline;
+        }
+      
+        /* Social icons row */
+        .social-icons {
+          display: flex;
+          align-items: center;
+          margin-left: 20px;
+        }
+        .social-icons a {
+          margin-left: 10px;
+        }
+        .social-icons img {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          filter: invert(1); /* Inverts the colors of the SVG */
+        }
+      </style>
+</head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TOUR - Porch Couch</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #000;
-      color: #fff;
+      background: url('band2.jpg') no-repeat center center fixed; /* Sets band2.jpg as the background */
+      background-size: cover; /* Ensures the image covers the entire page */
+      color: #ffffff; /* Adjust text color for better contrast */
       margin: 0;
       padding: 20px;
       text-align: center;
     }
     a {
-      color: #0cf;
+      color: yellow; /* Adjust link color for better visibility */
       text-decoration: none;
       font-size: 24px;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
-<body>
-  <a href="https://www.instagram.com/thebellandbeacon/?hl=en" target="_blank">
-    June 18 - Toronto, ON - The Bell and Beacon
-  </a>
-  <img src="band1.jpg" alt="Band image">
-</body>
+<body> 
+    <div style="display: flex; align-items: flex-start;">
+      <p style="font-size: 24px; text-align: cent; margin-right: 20px;">
+        June 18 - Toronto, ON - 
+        <a href="https://www.instagram.com/thebellandbeacon/?hl=en" target="_blank" style="color: rgb(249, 249, 249); text-decoration: underline;">
+          The Bell and Beacon
+        </a>
+        <br>
+        <br>
+        Summer tour dates coming soon!
+      </p>
+      
+    </div>
+  </body>
 </html>

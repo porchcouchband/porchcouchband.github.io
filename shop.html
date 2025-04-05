@@ -1,88 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <header>
+        <div class="header-left">
+          <img src="porch-couch-logo.jpg" alt="Porch Couch Logo" class="logo" />
+          <span class="brand-text">PORCH COUCH</span>
+        </div>
+        <div class="header-right">
+          <nav>
+            <a href="index.html">HOME</a>
+            <a href="tour.html">TOUR</a>
+            <a href="shop.html">SHOP</a>
+            <a href="who.html">ABOUT</a>
+          </nav>
+          <div class="social-icons">
+            <a href="https://instagram.com/jaronfreemanfox" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://instagram.com/_alan_mackie" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://open.spotify.com/" target="_blank">
+              <img src="spotify.svg" alt="Spotify" />
+            </a>
+            <a href="mailto:porchcoucholdtime@gmail.com">
+              <img src="mailto.svg" alt="Email" />
+            </a>
+          </div>
+        </div>
+      </header>      
+      
+      <style>
+        header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(17, 15, 15);
+  padding: 10px 20px;
+  color: white;
+  font-family: sans-serif;
+  margin-bottom: 20px; /* Adds space below the header */
+}
+
+/* Left side with logo + text */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo styling */
+.header-left .logo {
+  width: 150px; /* Adjust as needed */
+  height: auto;
+  margin-right: 10px;
+}
+
+/* Brand text styling */
+.brand-text {
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Right side with nav + social icons */
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation links */
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  font-size: 17px;
+  transition: color 0.3s ease;
+}
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Social icons row */
+.social-icons {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.social-icons a {
+  margin-left: 10px;
+}
+.social-icons img {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  filter: invert(1); /* Inverts the colors of the SVG */
+}
+
+
+      </style>
+      
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SHOP - Porch Couch</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #000;
-      color: #fff;
+      background: #e5f1f7;
+      color: #110202;
       margin: 0;
       padding: 20px;
-      text-align: center;
     }
-    .section {
-      margin-bottom: 30px;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-    img {
-      max-width: 100%;
-      height: auto;
+    .video-container {
+      flex: 1;
+      min-width: 300px;
+      max-width: 60%;
+      position: relative;
+      padding-top: 56.25%;
+      height: 0;
     }
-    iframe {
-      width: 80%;
-      height: 450px;
-      max-width: 560px;
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border: none;
+    }
+    .details {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .item-row {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .thumbnail-container {
+      position: relative;
+      display: inline-block;
+    }
+    .thumbnail {
+      width: 150px; /* Thumbnail size set to 150px */
+      height: auto;
+      cursor: pointer;
+      margin-left: 10px;
+      display: block;
+    }
+    .thumbnail-container:hover::after {
+      content: "Earrings - $15";
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .full-size {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .full-size img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    a.more-merch {
+      color: #0000EE;
+      text-decoration: underline;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
-  <!-- Video Section -->
-  <div class="section">
-    <iframe src="https://www.youtube.com/embed/8fVYooH5FOY?feature=share" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <p style="font-size: 24px; margin-top: 10px;">PORCH PANTS, COUCH-SHIRTS, PAPERS - SOLD OUT</p>
-    <img src="frown.png" alt="Frown Face" style="width: 100px;">
-  </div>
+  <div class="container">
+    <div class="video-container">
+      <iframe src="https://player.vimeo.com/video/1072428643?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="porch.couch.merch.drop"></iframe>
+    </div>
 
-  <!-- Earrings Section -->
-  <div class="section">
-    <img src="earrings1.JPG" alt="Earrings 1" style="width: 45%; margin-right: 5%;">
-    <img src="earrings2.JPG" alt="Earrings 2" style="width: 45%;">
-    <p style="font-size: 24px; margin-top: 10px;">Earrings</p>
-  </div>
+    <div class="details">
+      <div class="item-row">Porch Pants  -- SOLD OUT ☹️</div>
+      <div class="item-row">Couch Shirts - SOLD OUT ☹️</div>
+      <div class="item-row">Rollie Boys --- SOLD OUT ☹️</div>
+      <div class="item-row">Ear Bling ------ $15 🥳</div>
+      <div class="item-row">
+        <div class="thumbnail-container">
+          <img src="earrings1.JPG" alt="Earrings 1" class="thumbnail" onclick="viewImage(this.src)">
+        </div>
+        <div class="thumbnail-container">
+          <img src="earrings2.JPG" alt="Earrings 2" class="thumbnail" onclick="viewImage(this.src)">
+        </div>
+      </div>
 
-  <!-- PayPal Form Section -->
-  <div class="section">
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-      <input type="hidden" name="cmd" value="_s-xclick" />
-      <input type="hidden" name="hosted_button_id" value="RZC53SBTLSBAW" />
-      <table style="margin: 0 auto;">
-        <tr>
-          <td>
-            <input type="hidden" name="on0" value="Shipping"/>
-            Shipping
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <select name="os0">
-              <option value="Canada">Canada $3.00 CAD</option>
-              <option value="Other places">Other places $6.00 CAD</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="hidden" name="on1" value="Type"/>
-            Type
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <select name="os1">
-              <option value="Fiddle+Banjo">Fiddle+Banjo</option>
-              <option value="Fiddle+Couch">Fiddle+Couch</option>
-              <option value="Banjo+Couch">Banjo+Couch</option>
-              <option value="Double Couch for the freaks">Double Couch for the freaks</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-      <input type="hidden" name="currency_code" value="CAD" />
-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" style="margin-top: 10px;"/>
-    </form>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick" />
+        <input type="hidden" name="hosted_button_id" value="SS683PY8G4DSC" />
+        <table>
+          <tr>
+            <td>
+              <input type="hidden" name="on0" value="Total price w/ shipping"/>
+              Total price w/ shipping
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select name="os0">
+                <option value="Canada">Canada $18.00 CAD</option>
+                <option value="Other places">Other places $22.00 CAD</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="hidden" name="on1" value="Type"/>Type</td>
+          </tr>
+          <tr>
+            <td>
+              <select name="os1">
+                <option value="Fiddle+Banjo">Fiddle+Banjo</option>
+                <option value="Fiddle+Couch">Fiddle+Couch</option>
+                <option value="Banjo+Couch">Banjo+Couch</option>
+                <option value="Double Couch for the absolute freaks">Double Couch for the absolute freaks</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <input type="hidden" name="currency_code" value="CAD" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" style="margin-top: 10px;"/>
+      </form>
+      
+      <div style="margin-top: 20px;">
+        <a href="https://www.la-z-boy.com/b/sofas--sectionals-reclining-sofas--sectionals/_/N-1kuacwm?intpromo=viewAll.RecliningSofasSectionals" target="_blank" class="more-merch">More merch</a>
+      </div>
+    </div>
   </div>
+  
+  <div class="full-size" id="fullSizeContainer" onclick="closeImage()">
+    <img id="fullSizeImage" src="" alt="Full Size"/>
+  </div>
+  
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script>
+    function viewImage(src) {
+      document.getElementById('fullSizeImage').src = src;
+      document.getElementById('fullSizeContainer').style.display = 'flex';
+    }
+    function closeImage() {
+      document.getElementById('fullSizeContainer').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
