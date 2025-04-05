@@ -32,17 +32,6 @@
   </header>
       
   <style>
-.brand-text {
-    font-size: 35px;
-    font-weight: bold; /* Makes the text bold */
-    color: black; /* Changes the text color to black */
-    text-decoration: none; /* Removes underline */
-  }
-
-  .brand-text:hover {
-    text-decoration: underline; /* Adds underline on hover */
-  }
-
     /* General header styling */
     header {
       display: flex;
@@ -52,13 +41,6 @@
       color: white;
       font-family: sans-serif;
       margin-bottom: 20px;
-    }
-  
-    /* Navigation links and social icons container */
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 20px; /* Adds spacing between the nav and social icons */
     }
   
     /* Navigation links */
@@ -114,6 +96,7 @@
         right: 20px;
         padding: 10px;
         border-radius: 5px;
+        z-index: 1000; /* Ensure the menu is above other elements */
       }
   
       header nav a {
@@ -142,9 +125,10 @@
     text-align: center;
   }
   a {
-    color: yellow; /* Adjust link color for better visibility */
+    color: rgb(0, 0, 0); /* Adjust link color for better visibility */
     text-decoration: none;
-    font-size: 24px;
+    font-weight: bold;
+    font-size: 35px;
   }
   a:hover {
     text-decoration: underline;
@@ -155,6 +139,29 @@
     line-height: 1.6;
     text-align: justify; /* Justifies the text */
   }
+  /* Default styling for the text box */
+  .text-box {
+    position: absolute;
+    top: 20%;
+    left: 2%;
+    width: 30%; /* Default width for larger screens */
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.557);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  /* Adjust the text box for smaller screens */
+  @media (max-width: 768px) {
+    .text-box {
+      width: 100%; /* Make the text box take up the full width */
+      left: 0; /* Align it to the left edge */
+      right: 5%; /* Align it to the left edge */
+      top: 20%; /* Adjust the top position for better spacing */
+      border-radius: 0; /* Remove rounded corners for a cleaner look */
+    }
+  }
+
 </style>
 <script>
   function toggleMenu() {
@@ -163,10 +170,11 @@
   }
 </script>
 <body>
-  <div style="position: absolute; top: 20%; left: 2%; width: 30%; text-align: left; background-color: rgba(255, 255, 255, 0.557); padding: 20px; border-radius: 10px;">
+  <div class="text-box">
     <p>
       Alan Mackie and Jaron Freeman-Fox are <b>Porch Couch</b>, reanimating old-time and square dance tunes from Appalachia and beyond on fiddle and banjo, deftly balancing a deep respect for tradition against all the times they've shirked it: throat singing with Norwegians in a Siberian yurt camp, modern dancers leaping across tables at the PWYC bar gig, or playing for ravers under the midnight sun while the drummer bangs pool cues on the floor. Wry, colourful, and psychedelic, Porch Couch is an original sound in traditional music that moves listeners and dancers alike.
     </p>
   </div>
+  
 </body>
 </html>
