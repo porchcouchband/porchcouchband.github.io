@@ -164,7 +164,7 @@
 });
 
 gif.addEventListener('mouseout', function () {
-  this.src = this.dataset.original; // Revert to the original GIF
+  this.src = `${this.dataset.original}?t=${new Date().getTime()}`; // Revert to the original GIF
   text.style.display = "none"; // Hide the overlay text
   isPaused = false; // Resume the movement
   this.style.zIndex = "1"; // Reset the z-index of the GIF
