@@ -1,36 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <head>
-        <header>
-          <div class="header-left">
+    <header>
+        <div class="header-left">
+          <a href="#" onclick="openVideoModal()" class="logo-container">
             <img src="porch-couch-logo.svg" alt="Porch Couch Logo" class="logo" />
-            <a href="index.html" class="brand-text">PORCH COUCH</a>
+          </a>
+          <a href="index.html" class="brand-text">PORCH COUCH</a>
+        </div>
+        <div class="header-right">
+          <div class="hamburger" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon -->
+          <nav id="mobileMenu">
+            <a href="music.html">MUSIC</a>
+            <a href="tour.html">TOUR</a>
+            <a href="shop.html">SHOP</a>
+            <a href="who.html">ABOUT</a>
+          </nav>
+          <div class="social-icons">
+            <a href="https://instagram.com/jaronfreemanfox" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://instagram.com/_alan_mackie" target="_blank">
+              <img src="instagram.svg" alt="Instagram" />
+            </a>
+            <a href="https://open.spotify.com/" target="_blank">
+              <img src="spotify.svg" alt="Spotify" />
+            </a>
+            <a href="mailto:porchcoucholdtime@gmail.com">
+              <img src="mailto.svg" alt="Email" />
+            </a>
           </div>
-          <div class="header-right">
-            <nav>
-                <a href="music.html">MUSIC</a>
-              <a href="tour.html">TOUR</a>
-              <a href="shop.html">SHOP</a>
-              <a href="who.html">ABOUT</a>
-            </nav>
-            <div class="social-icons">
-              <a href="https://instagram.com/jaronfreemanfox" target="_blank">
-                <img src="instagram.svg" alt="Instagram" />
-              </a>
-              <a href="https://instagram.com/_alan_mackie" target="_blank">
-                <img src="instagram.svg" alt="Instagram" />
-              </a>
-              <a href="https://open.spotify.com/" target="_blank">
-                <img src="spotify.svg" alt="Spotify" />
-              </a>
-              <a href="mailto:porchcoucholdtime@gmail.com">
-                <img src="mailto.svg" alt="Email" />
-              </a>
-            </div>
-          </div>
-        </header>
-        
+        </div>
+      </header>
+      
+      <!-- Modal for YouTube video -->
+      <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+          <span class="close-video" onclick="closeVideoModal()">&times;</span>
+          <iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+        </div>
+      </div>
+      <style>
+        /* Modal styling */
+        .video-modal {
+          display: none; /* Ensure the modal is hidden by default */
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+          justify-content: center;
+          align-items: center;
+          z-index: 1000; /* Ensure it appears above other elements */
+        }
+      
+        .video-modal-content {
+          position: relative;
+          width: 80%;
+          max-width: 800px;
+          height: 0;
+          padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+        }
+      
+        .video-modal-content iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      
+        .close-video {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          color: white;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 1001; /* Ensure it appears above the iframe */
+        }
+      </style>
         <style>
           header {
             display: flex;
@@ -97,34 +147,163 @@
             display: inline-block;
             filter: invert(1); /* Inverts the colors of the SVG */
           }
-        </style>
-</head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TOUR - Porch Couch</title>
-  <style>
+</style>
+<style>
+    /* General header styling */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      color: white;
+      font-family: sans-serif;
+      margin-bottom: 20px;
+    }
+  
+    /* Left side with logo + text */
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+  
+    /* Logo styling */
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+  
+    .logo {
+      width: 100px; /* Adjust as needed */
+      height: auto;
+      margin-right: 10px;
+    }
+  
+    /* Brand text styling */
+    .brand-text {
+      font-size: 35px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: black;
+    }
+  
+    /* Right side with nav + social icons */
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+  
+    /* Navigation links */
+    header nav {
+      display: flex;
+      gap: 15px;
+    }
+  
+    header nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      transition: color 0.3s ease;
+    }
+  
+    header nav a:hover {
+      text-decoration: underline;
+    }
+  
+    /* Hamburger menu (hidden by default) */
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  
+    /* Social icons */
+    .social-icons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .social-icons img {
+      width: 20px;
+      height: 20px;
+      filter: invert(1); /* Inverts the colors of the SVG */
+    }
+  
+    /* Responsive styles for smaller screens */
+    @media (max-width: 768px) {
+      .logo-container {
+        display: none; /* Hide the logo on smaller screens */
+      }
+  
+      .header-right {
+        flex-direction: column; /* Stack the nav and icons vertically */
+        align-items: flex-end; /* Align items to the right */
+      }
+  
+      header nav {
+        display: none; /* Hide the navigation links by default */
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 60px;
+        right: 0; /* Align the menu to the right side of the page */
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000; /* Ensure the menu is above other elements */
+      }
+  
+      header nav a {
+        margin: 5px 0;
+        font-size: 18px;
+        text-align: right; /* Align links to the right */
+      }
+  
+      .hamburger {
+        display: block; /* Show the hamburger menu on smaller screens */
+      }
+  
+      #mobileMenu.show {
+        display: flex; /* Show the navigation links when toggled */
+      }
+    }
+  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TOUR - Porch Couch</title>
+<style>
+    /* General body styling */
     body {
       font-family: sans-serif;
-      background: url('band2.jpg') no-repeat center center fixed; /* Sets band2.jpg as the background */
+      background: url('band2-placeholder.jpg') no-repeat center center fixed; /* Placeholder image */
       background-size: cover; /* Ensures the image covers the entire page */
-      color: #ffffff; /* Adjust text color for better contrast */
+      color: #d5c8c8; /* Adjust text color for better contrast */
       margin: 0;
       padding: 20px;
-      text-align: center;
     }
+  
     a {
       color: yellow; /* Adjust link color for better visibility */
       text-decoration: none;
       font-size: 24px;
     }
+  
     a:hover {
       text-decoration: underline;
     }
+  
+    /* Styling for the text container */
+    .text-container {
+      background-color: rgba(0, 0, 0, 0.433); /* Semi-transparent black background */
+      border-radius: 10px; /* Rounded corners */
+      padding: 20px; /* Add padding around the text */
+      display: inline-block; /* Keep the text's current alignment and position */
+    }
   </style>
 </head>
-<body> 
-    <div style="display: flex; align-items: flex-start;">
-      <p style="font-size: 24px; text-align: cent; margin-right: 20px;">
+<body>
+    <div class="text-container">
+      <p style="font-size: 24px; text-align: center; margin-right: 20px;">
         June 18 - Toronto, ON - 
         <a href="https://www.instagram.com/thebellandbeacon/?hl=en" target="_blank" style="color: rgb(249, 249, 249); text-decoration: underline;">
           The Bell and Beacon
@@ -133,7 +312,36 @@
         <br>
         Summer tour dates coming soon!
       </p>
-      
     </div>
+  
+    <script>
+      function openVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoFrame');
+        iframe.src = "https://www.youtube.com/embed/j1AsH3Wigp0?autoplay=1&modestbranding=1&rel=0";
+        modal.style.display = "flex"; // Show the modal
+      }
+  
+      function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoFrame');
+        iframe.src = ""; // Stop the video
+        modal.style.display = "none"; // Hide the modal
+      }
+    </script>
+  
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('show'); // Toggle the "show" class
+      }
+    </script>
+  
+    <script>
+      // Lazy-load the full background image after the page has loaded
+      window.addEventListener('load', function() {
+        document.body.style.backgroundImage = "url('band2.jpg')";
+      });
+    </script>
   </body>
 </html>
