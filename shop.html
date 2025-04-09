@@ -246,18 +246,44 @@
       margin-left: 10px;
       display: block;
     }
-    .thumbnail-container:hover::after {
-      content: "Earrings - $15";
-      position: absolute;
-      bottom: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 5px 10px;
-      font-size: 14px;
-      white-space: nowrap;
-    }
+    .thumbnail-container {
+  position: relative; /* Ensure the pseudo-element is positioned relative to this container */
+}
+
+.thumbnail-container:hover::after {
+  content: attr(data-hover-text); /* Use the data-hover-text attribute for the text */
+  position: absolute;
+  bottom: -25px; /* Position the text below the image */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+  color: #fff; /* White text color */
+  padding: 5px 10px; /* Add padding around the text */
+  font-size: 14px; /* Adjust font size */
+  white-space: nowrap; /* Prevent text from wrapping */
+  border-radius: 5px; /* Add rounded corners to the background */
+  z-index: 10; /* Ensure the text appears above other elements */
+}
+
+/* Specific hover text for pants.gif */
+.thumbnail-container img[src="pants.gif"]:hover::after {
+  content: "Porch Pants - SOLD OUT ☹️";
+}
+
+/* Specific hover text for papers.gif */
+.thumbnail-container img[src="papers.gif"]:hover::after {
+  content: "Rollie Boys - SOLD OUT ☹️";
+}
+
+/* Specific hover text for earrings1.JPG */
+.thumbnail-container img[src="earrings1.JPG"]:hover::after {
+  content: "Ear Bling - $15 🥳";
+}
+
+/* Specific hover text for earrings2.JPG */
+.thumbnail-container img[src="earrings2.JPG"]:hover::after {
+  content: "Ear Bling - $15 🥳";
+}
     .full-size {
       display: none;
       position: fixed;
@@ -313,18 +339,24 @@
     </div>
 
     <div class="details" style="background-color: rgba(255, 255, 255, 0.312); padding: 10px; border-radius: 10px;">
-      <div class="item-row">Porch Pants  -- SOLD OUT ☹️</div>
+     
+      <div class="gif-thumbnails">
+  <div class="thumbnail-container" data-hover-text="Porch Pants - SOLD OUT ☹️">
+    <img src="pants.gif" alt="Pants GIF" class="thumbnail" />
+  </div>
+  <div class="thumbnail-container" data-hover-text="Rollie Boys - SOLD OUT ☹️">
+    <img src="papers.gif" alt="Papers GIF" class="thumbnail" />
+  </div>
+</div>
       <div class="item-row">Couch Shirts - SOLD OUT ☹️</div>
-      <div class="item-row">Rollie Boys --- SOLD OUT ☹️</div>
-      <div class="item-row">Ear Bling ------ $15 🥳</div>
       <div class="item-row">
-        <div class="thumbnail-container">
-          <img src="earrings1.JPG" alt="Earrings 1" class="thumbnail" onclick="viewImage(this.src)">
-        </div>
-        <div class="thumbnail-container">
-          <img src="earrings2.JPG" alt="Earrings 2" class="thumbnail" onclick="viewImage(this.src)">
-        </div>
-      </div>
+  <div class="thumbnail-container" data-hover-text="Ear Bling - $15 🥳">
+    <img src="earrings1.JPG" alt="Earrings 1" class="thumbnail" onclick="viewImage(this.src)" />
+  </div>
+  <div class="thumbnail-container" data-hover-text="Ear Bling - $15 🥳">
+    <img src="earrings2.JPG" alt="Earrings 2" class="thumbnail" onclick="viewImage(this.src)" />
+  </div>
+</div>
 
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick" />
