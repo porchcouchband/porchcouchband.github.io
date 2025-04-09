@@ -127,55 +127,65 @@
     }
 
     function initializeGifs() {
-      document.querySelectorAll('.gif-container').forEach((container, index) => {
-        const gif = container.querySelector('.floating');
-        const text = container.querySelector('.overlay-text');
+  document.querySelectorAll('.gif-container').forEach((container) => {
+    const gif = container.querySelector('.floating');
+    const text = container.querySelector('.overlay-text');
 
-        let x = Math.random() * (window.innerWidth - gif.width);
-        let y = Math.random() * (window.innerHeight - gif.height);
-        let dx = (Math.random() - 0.5) * 2;
-        let dy = (Math.random() - 0.5) * 2;
-        let isPaused = false;
+    // Preload images
+    const originalSrc = gif.src;
+    const hoverSrc = gif.dataset.hover;
+    const preloadOriginal = new Image();
+    const preloadHover = new Image();
+    preloadOriginal.src = originalSrc;
+    preloadHover.src = hoverSrc;
 
-        function moveGif() {
-          if (!isPaused) {
-            x += dx;
-            y += dy;
+    let x = Math.random() * (window.innerWidth - gif.width);
+    let y = Math.random() * (window.innerHeight - gif.height);
+    let dx = (Math.random() - 0.5) * 2;
+    let dy = (Math.random() - 0.5) * 2;
+    let isPaused = false;
 
-            if (x <= 0 || x + gif.width >= window.innerWidth) dx *= -1;
-            if (y <= 0 || y + gif.height >= window.innerHeight) dy *= -1;
+    function moveGif() {
+      if (!isPaused) {
+        x += dx;
+        y += dy;
 
-            gif.style.transform = `translate(${x}px, ${y}px)`;
-            text.style.transform = `translate(${x}px, ${y}px)`;
-          }
+        if (x <= 0 || x + gif.width >= window.innerWidth) dx *= -1;
+        if (y <= 0 || y + gif.height >= window.innerHeight) dy *= -1;
 
-          requestAnimationFrame(moveGif);
-        }
+        gif.style.transform = `translate(${x}px, ${y}px)`;
+        text.style.transform = `translate(${x}px, ${y}px)`;
+      }
 
-        moveGif();
-
-        gif.addEventListener('mouseover', function () {
-  this.dataset.original = this.src; // Save the original GIF source
-  this.src = this.dataset.hover; // Change to the hover image
-  text.style.display = "block"; // Show the overlay text
-  isPaused = true; // Stop the movement
-  this.style.zIndex = "10"; // Bring the GIF to the front
-  text.style.zIndex = "10"; // Bring the text to the front
-});
-
-gif.addEventListener('mouseout', function () {
-  this.src = `${this.dataset.original}?t=${new Date().getTime()}`; // Revert to the original GIF
-  text.style.display = "none"; // Hide the overlay text
-  isPaused = false; // Resume the movement
-  this.style.zIndex = "1"; // Reset the z-index of the GIF
-  text.style.zIndex = "1"; // Reset the z-index of the text
-});
-
-        gif.addEventListener('click', function () {
-          window.location.href = this.dataset.link;
-        });
-      });
+      requestAnimationFrame(moveGif);
     }
+
+    moveGif();
+
+    gif.addEventListener('mouseover', function () {
+      gif.dataset.original = gif.src; // Save the original GIF source
+      gif.src = hoverSrc; // Change to the hover image
+      text.style.display = "block"; // Show the overlay text
+      isPaused = true; // Stop the movement
+      gif.style.zIndex = "10"; // Bring the GIF to the front
+      text.style.zIndex = "10"; // Bring the text to the front
+    });
+
+    gif.addEventListener('mouseout', function () {
+      setTimeout(() => {
+        gif.src = `${originalSrc}?t=${new Date().getTime()}`; // Force reload the original GIF
+        text.style.display = "none"; // Hide the overlay text
+        isPaused = false; // Resume the movement
+        gif.style.zIndex = "1"; // Reset the z-index of the GIF
+        text.style.zIndex = "1"; // Reset the z-index of the text
+      }, 100); // Add a slight delay to ensure proper reload
+    });
+
+    gif.addEventListener('click', function () {
+      window.location.href = gif.dataset.link;
+    });
+  });
+}
 
     function openVideo() {
       document.getElementById("videoModal").style.display = "flex";
