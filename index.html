@@ -70,6 +70,25 @@
       cursor: pointer;
     }
   </style>
+  <style>
+    @keyframes expandAndCenter {
+      0% {
+        transform: translate(0, 0) scale(1); /* Start at original position and size */
+      }
+      100% {
+        transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(50); /* Move to center and expand */
+      }
+    }
+  
+    .expanding {
+      animation: expandAndCenter 100s forwards; /* Expand and move to center over 5 seconds */
+      position: fixed; /* Ensure it stays in place while expanding */
+      top: 0;
+      left: 0;
+      transform-origin: center; /* Expand from the center */
+      z-index: 1000; /* Ensure it appears above all other elements */
+    }
+  </style>
 </head>
 <body>
   <div class="background-link" onclick="openVideo()"></div>
@@ -94,18 +113,55 @@
     <iframe id="videoFrame" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
   </div>
   
-  <div style="position: fixed; top: 10px; right: 10px; z-index: 30;">
-    <img src="speaker.svg" alt="Speaker Icon" 
+  <div style="position: fixed; top: 10px; left: 10px; z-index: 30;">
+    <img id="toggleIcon" src="speaker.svg" alt="Speaker Icon" 
          style="width: 40px; height: 40px; cursor: pointer; filter: invert(1);" 
-         onclick="toggleAudio()" />
+         onclick="toggleAudioAndSize()" />
   </div>
   
   <audio id="audioPlayer">
-    <source src="Silver_Lake_3.11.2026.mp3" type="audio/mpeg">
+    <source src="Silver Lake.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
-
   <script>
+    let isSpeaker = true; // Track the current icon state
+  
+    function toggleIcon() {
+      const icon = document.getElementById('toggleIcon');
+      if (isSpeaker) {
+        icon.src = 'click.svg'; // Switch to click.svg
+      } else {
+        icon.src = 'speaker.svg'; // Switch back to speaker.svg
+      }
+      isSpeaker = !isSpeaker; // Toggle the state
+    }
+  
+    // Set an interval to toggle the icon every 500ms
+    setInterval(toggleIcon, 500);
+ 
+    let isExpanding = false; // Track whether the icon is expanding
+  
+    function toggleAudioAndSize() {
+      const icon = document.getElementById('toggleIcon');
+  
+      // Toggle audio playback
+      toggleAudio(); // Call the toggleAudio function
+  
+      // Toggle the expanding effect
+      if (isExpanding) {
+        icon.classList.remove('expanding'); // Stop expanding
+        icon.src = 'speaker.svg'; // Reset to the original icon
+        icon.style.transform = 'scale(1)'; // Reset size
+        icon.style.position = 'fixed'; // Reset position
+        icon.style.top = '10px'; // Reset to original top position
+        icon.style.left = '10px'; // Reset to original left position
+      } else {
+        icon.src = 'couch.svg'; // Change to couch.svg
+        icon.classList.add('expanding'); // Start expanding and floating to center
+      }
+      isExpanding = !isExpanding; // Toggle the state
+    }
+  
     function toggleAudio() {
       const audioPlayer = document.getElementById('audioPlayer');
       if (audioPlayer.paused) {
@@ -115,6 +171,9 @@
       }
     }
   </script>
+
+
+ 
 
   <script>
     function updateGifSizes() {
