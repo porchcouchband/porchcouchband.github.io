@@ -206,19 +206,50 @@
 </head>
 <body> 
   <div style="text-align: center; margin-top: 20px;">
-    <a 
-  href="https://share.amuse.io/h9VZXy_oBJwF" 
-  target="_blank" 
-  style="font-size: 24px; margin-bottom: 10px; display: inline-block; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none;">
-  bb's first single
-</a>
-    <div id="audioPlayer" style="display: none; margin-top: 10px;">
-      <audio controls>
-        <source src="Silver_Lake_3.11.2026.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
+    <div 
+      id="dropdownTrigger" 
+      style="font-size: 24px; margin-bottom: 10px; cursor: pointer; display: inline-block; background-color: rgba(0, 0, 0, 0.5); color: white; padding: 10px 20px; border-radius: 10px;" 
+      onclick="toggleDropdown()">
+      bb's first single
+    </div>
+    <div id="dropdownMenu" style="display: none; margin-top: 10px; text-align: left; background-color: rgba(0, 0, 0, 0.8); padding: 10px; border-radius: 10px; width: 250px; margin: 0 auto;">
+      <a href="https://prf.hn/click/camref:1101ljTW2/pubref:Porch%20Couch%20-%20Silver%20Lake/destination:https://open.spotify.com/track/5FdJ8bYH3E9E3Gs4lDcygV" target="_blank" style="display: flex; align-items: center; color: white; text-decoration: none; margin-bottom: 10px;">
+        <img src="spotify.svg" alt="Spotify" style="width: 20px; height: 20px; margin-right: 10px;" />
+        Spotify
+      </a>
+      <a href="https://music.apple.com/us/album/silver-lake/1811340967?i=1811340968" target="_blank" style="display: flex; align-items: center; color: white; text-decoration: none; margin-bottom: 10px;">
+        <img src="applemusic.svg" alt="Apple Music" style="width: 20px; height: 20px; margin-right: 10px;" />
+        Apple Music
+      </a>
+      <a href="https://music.youtube.com/watch?v=8l0f5Pdo17A" target="_blank" style="display: flex; align-items: center; color: white; text-decoration: none; margin-bottom: 10px;">
+        <img src="youtube.svg" alt="YouTube Music" style="width: 20px; height: 20px; margin-right: 10px;" />
+        YouTube Music
+      </a>
+      <a href="index.html" style="display: flex; align-items: center; color: white; text-decoration: none;">
+        <img src="couch.svg" alt="Homepage" style="width: 20px; height: 20px; margin-right: 10px;" />
+        Just lemme hear it
+      </a>
     </div>
   </div>
+  <style>
+    #dropdownMenu img {
+      filter: invert(1); /* Invert the colors of the SVG icons */
+    }
+  
+    #dropdownMenu a:hover img {
+      filter: invert(0.5); /* Slightly reduce inversion on hover for a subtle effect */
+    }
+  </style>
+  <script>
+    function toggleDropdown() {
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+        dropdownMenu.style.display = 'block'; // Show the dropdown menu
+      } else {
+        dropdownMenu.style.display = 'none'; // Hide the dropdown menu
+      }
+    }
+  </script>
 
   <div style="text-align: center; margin-top: 20px;">
     <p 
