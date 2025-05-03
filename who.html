@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="description" content="Treat yourself to some Porch Couch biographies">
-    <meta name="keywords" content="Porch Couch, Band, Music, Old-Time, Fiddle, Banjo, Jaron Freeman-Fox, Alan Mackie, Toronto, Canada, Appalachia, Folk, Freak, Couch, music, tour, merch, Spotify, Apple Music, YouTube Music">
-    <meta name="author" content="Porch Couch">
-  </head>
-  <header>
-    <div class="header-left">
-      <a href="index.html" class="brand-text">PORCH COUCH</a>
-    </div>
-    <div class="header-right">
-      <div class="hamburger" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon -->
-      <nav id="mobileMenu">
-        <a href="music.html">MUSIC</a>
-        <a href="tour.html">TOUR</a>
-        <a href="shop.html">SHOP</a>
-        <a href="who.html">ABOUT</a>
-      </nav>
-      <div class="social-icons">
-        <a href="https://instagram.com/porchcouccccc" target="_blank">
-          <img src="instagram.svg" alt="Instagram" />
-        </a>
-        <a href="https://open.spotify.com/track/5FdJ8bYH3E9E3Gs4lDcygV?si=c601f5aa4b124c59" target="_blank">
-          <img src="spotify.svg" alt="Spotify" />
-        </a>
-        <a href="mailto:porchcoucholdtime@gmail.com">
-          <img src="mailto.svg" alt="Email" />
-        </a>
-      </div>
-    </div>
-  </header>
-      
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Treat yourself to some Porch Couch biographies"/>
+  <meta name="author" content="Porch Couch" />
+  <meta name="keywords" content="Porch Couch, Band, Music, Old-Time, Fiddle, Banjo, Jaron Freeman-Fox, Alan Mackie, Toronto, Canada, Appalachia, Folk, Freak, Couch, music, tour, merch, Spotify, Apple Music, YouTube Music">
+  <title>ABOUT - Porch Couch</title>
+
+  <!-- Inline Styles -->
   <style>
-    /* General header styling */
+    /* General body styling */
+    body {
+      font-family: sans-serif;
+      background: url('band1.jpg') no-repeat top center fixed;
+      background-size: cover;
+      color: #0c0c0c;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    a {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 35px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 0px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* Header styling */
     header {
       display: flex;
       align-items: center;
@@ -42,148 +49,161 @@
       font-family: sans-serif;
       margin-bottom: 20px;
     }
-  
-    /* Navigation links and social icons container */
+    .header-left {
+      text-align: left;
+    }
+    .header-left a {
+      font-weight: bold;
+    }
+
     .header-right {
       display: flex;
       align-items: center;
-      gap: 20px; /* Adds spacing between the nav and social icons */
+      gap: 20px;
     }
-  
-    /* Navigation links */
-    header nav {
+    .brand-text {
+      font-size: 35px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: black;
+      text-decoration: none;
+    }
+    nav {
       display: flex;
       gap: 15px;
     }
-  
-    header nav a {
+
+    nav a {
       color: rgb(255, 255, 255);
       text-decoration: none;
       font-size: 17px;
       transition: color 0.3s ease;
     }
-  
-    header nav a:hover {
+
+    nav a:hover {
       text-decoration: underline;
     }
-  
-    /* Hamburger menu (hidden by default) */
+
     .hamburger {
       display: none;
-      font-size: 24px;
+      font-size: 30px;
       cursor: pointer;
     }
-  
-    /* Social icons */
+
     .social-icons {
       display: flex;
       gap: 10px;
       align-items: center;
     }
-  
+
     .social-icons img {
       width: 20px;
       height: 20px;
-      filter: invert(1); /* Inverts the colors of the SVG */
+      filter: invert(1);
     }
-  
-    /* Responsive styles for smaller screens */
+
+    /* Mobile-specific styling */
     @media (max-width: 768px) {
       .header-right {
-        flex-direction: column; /* Stack the nav and icons vertically */
-        align-items: flex-end; /* Align items to the right */
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0;
       }
-  
-      header nav {
-        display: none; /* Hide the navigation links by default */
+
+      nav {
+        display: none;
         flex-direction: column;
         background-color: rgba(0, 0, 0, 0.8);
         position: absolute;
         top: 60px;
-        right: 0; /* Align the menu to the right side of the page */
+        right: 0;
         padding: 10px;
         border-radius: 5px;
-        z-index: 1000; /* Ensure the menu is above other elements */
+        z-index: 1000;
       }
-  
-      header nav a {
+
+      nav a {
         margin: 5px 0;
         font-size: 18px;
-        text-align: right; /* Align links to the right */
+        text-align: right;
       }
-  
+
       .hamburger {
-        display: block; /* Show the hamburger menu on smaller screens */
+        display: block;
       }
-  
+
       #mobileMenu.show {
-        display: flex; /* Show the navigation links when toggled */
+        display: flex;
+      }
+    }
+
+    /* Text box for content */
+    .text-box {
+      margin-top: 50px;
+
+      width: 30%;
+      text-align: left;
+      background-color: rgba(255, 255, 255, 0.557);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .text-box {
+        width: 90%;
+        left: 0;
+        right: 0;
+        top: 20%;
+        border-radius: 0;
       }
     }
   </style>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<style>
-  body {
-    font-family: sans-serif;
-    background: url('band1.jpg') no-repeat top center fixed; /* Aligns the background image to the top */
-    background-size: cover; /* Ensures the image covers the entire page */
-    color: #0c0c0c; /* Adjust text color for better contrast */
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-  }
-  a {
-    color: rgb(0, 0, 0); /* Adjust link color for better visibility */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 35px;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  p {
-    font-size: 18px;
-    margin-top: 20px;
-    line-height: 1.6;
-    text-align: justify; /* Justifies the text */
-  }
-  /* Default styling for the text box */
-  .text-box {
-    position: absolute;
-    top: 20%;
-    left: 2%;
-    width: 30%; /* Default width for larger screens */
-    text-align: left;
-    background-color: rgba(255, 255, 255, 0.557);
-    padding: 20px;
-    border-radius: 10px;
-  }
 
-  /* Adjust the text box for smaller screens */
-  @media (max-width: 768px) {
-    .text-box {
-      width: 90%; /* Make the text box take up the full width */
-      left: 0; /* Align it to the left edge */
-      right: 0; /* Align it to the left edge */
-      top: 20%; /* Adjust the top position for better spacing */
-      border-radius: 0; /* Remove rounded corners for a cleaner look */
+  <!-- Inline JavaScript -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('show');
     }
-  }
-</style>
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById('mobileMenu');
-    menu.classList.toggle('show'); // Toggle the "show" class
-  }
-</script>
+  </script>
+
+</head>
 <body>
-  <div class="text-box">
-    <p>
-      Alan Mackie and Jaron Freeman-Fox are <b>Porch Couch</b>, reanimating old-time and square dance tunes from Appalachia and beyond on fiddle and banjo, deftly balancing a deep respect for tradition against all the times they've shirked it: throat singing with Norwegians in a Siberian yurt camp, modern dancers leaping across tables at the PWYC bar gig, or playing for ravers under the midnight sun while the drummer bangs pool cues on the floor. Wry, colourful, and psychedelic, Porch Couch is an original sound in traditional music that moves listeners and dancers alike.
-    </p>
-  </div>
-  
+
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="brand-text">PORCH COUCH</a>
+    </div>
+    <div class="header-right">
+      <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+      <nav id="mobileMenu">
+        <a href="music.html">MUSIC</a>
+        <a href="tour.html">TOUR</a>
+        <a href="shop.html">SHOP</a>
+        <a href="who.html">ABOUT</a>
+      </nav>
+      <div class="social-icons">
+        <a href="https://instagram.com/porchcouccccc" target="_blank" rel="noopener noreferrer">
+          <img src="instagram.svg" alt="Instagram" />
+        </a>
+        <a href="https://open.spotify.com/album/71x0AWkRakcaNLOt51SPoH?si=V4Sk56zNRLaV6tY5tFezFg" target="_blank" rel="noopener noreferrer">
+          <img src="spotify.svg" alt="Spotify" />
+        </a>
+        <a href="mailto:porchcoucholdtime@gmail.com">
+          <img src="mailto.svg" alt="Email" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="text-box">
+      <p>
+        Alan Mackie and Jaron Freeman-Fox are <b>Porch Couch</b>, reanimating old-time and square dance tunes from Appalachia and beyond on fiddle and banjo, deftly balancing a deep respect for tradition against all the times they've shirked it: throat singing with Norwegians in a Siberian yurt camp, modern dancers leaping across tables at the PWYC bar gig, or playing for ravers under the midnight sun while the drummer bangs pool cues on the floor. Wry, colourful, and psychedelic, Porch Couch is an original sound in traditional music that moves listeners and dancers alike.
+      </p>
+    </div>
+  </main>
+
 </body>
 </html>
